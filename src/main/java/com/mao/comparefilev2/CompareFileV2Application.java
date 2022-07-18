@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class CompareFileV2Application {
@@ -28,9 +29,38 @@ public class CompareFileV2Application {
     public static void main(String[] args) {
 
         SpringApplication.run(CompareFileV2Application.class, args);
+
         FileInputStream config = null;
         FileService fileService = new FileService();
         Properties properties = new Properties();
+        Scanner scanner = new Scanner(System.in);
+        String funtionString = null;
+
+        while (true) {
+
+            System.out.println("請輸入數字選擇功能");
+            System.out.println(" 1)  Compare by JCL");
+            System.out.println(" 2)  Compare by file");
+            funtionString = scanner.next();
+
+            if (funtionString.equals("1")) {
+                //用DB產JCL
+//        jclFile.generateJcl();
+                //用excel產JCL
+
+                System.out.println("run Compare by JCL");
+                break;
+            }
+
+            if (funtionString.equals("2")) {
+
+                System.out.println("run Compare by file");
+                break;
+            }
+        }
+
+
+
 
         Long file1Size;
         Long file2Size;
@@ -83,7 +113,7 @@ public class CompareFileV2Application {
                 System.out.println("第"+(i+1)+"筆結束");
                 long endTime=System.currentTimeMillis();
 
-                System.out.println("程式執行時間： " + (endTime - startTime) / 60000 + "分" + (endTime - startTime) % 60000 / 1000 + "秒");
+//                System.out.println("程式執行時間： " + (endTime - startTime) / 60000 + "分" + (endTime - startTime) % 60000 / 1000 + "秒");
 
             } catch (IOException e) {
 //            logger.error("檔案路徑有誤");
@@ -103,7 +133,6 @@ public class CompareFileV2Application {
             }
 //            System.out.println(excelLogModel);
             excelLogModelList.add(excelLogModel);
-            System.out.println("--------最後"+excelLogModel);
         }
 
         new ExcelLog().newExcelLog(excelLogModelList);

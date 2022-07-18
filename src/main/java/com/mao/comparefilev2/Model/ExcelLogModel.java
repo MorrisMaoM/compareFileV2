@@ -2,22 +2,42 @@ package com.mao.comparefilev2.Model;
 
 public class ExcelLogModel {
     private String leftFileName;
-    private String LeftFilePath;
+    private String leftFilePath;
     private String rightFileName;
     private String rightFilePath;
     private String compareStatus;
     private String statusDescription;
+    private String jcl;
 
     @Override
     public String toString() {
         return "ExcelLogModel{" +
                 "leftFileName='" + leftFileName + '\'' +
-                ", LeftFilePath='" + LeftFilePath + '\'' +
+                ", leftFilePath='" + leftFilePath + '\'' +
                 ", rightFileName='" + rightFileName + '\'' +
                 ", rightFilePath='" + rightFilePath + '\'' +
                 ", compareStatus='" + compareStatus + '\'' +
                 ", statusDescription='" + statusDescription + '\'' +
+                ", jcl='" + jcl + '\'' +
                 '}';
+    }
+
+    public String getJcl() {
+        return jcl;
+    }
+
+    public void setJcl(String jcl) {
+        this.jcl = jcl;
+    }
+
+    public ExcelLogModel(String leftFileName, String leftFilePath, String rightFileName, String rightFilePath, String compareStatus, String statusDescription, String jcl) {
+        this.leftFileName = leftFileName;
+        this.leftFilePath = leftFilePath;
+        this.rightFileName = rightFileName;
+        this.rightFilePath = rightFilePath;
+        this.compareStatus = compareStatus;
+        this.statusDescription = statusDescription;
+        this.jcl = jcl;
     }
 
     public String getLeftFileName() {
@@ -29,11 +49,11 @@ public class ExcelLogModel {
     }
 
     public String getLeftFilePath() {
-        return LeftFilePath;
+        return leftFilePath;
     }
 
     public void setLeftFilePath(String leftFilePath) {
-        LeftFilePath = leftFilePath;
+        this.leftFilePath = leftFilePath;
     }
 
     public String getRightFileName() {
@@ -73,7 +93,7 @@ public class ExcelLogModel {
 
     public ExcelLogModel(String leftFileName, String leftFilePath, String rightFileName, String rightFilePath, String compareStatus, String statusDescription) {
         this.leftFileName = leftFileName;
-        LeftFilePath = leftFilePath;
+        this.leftFilePath = leftFilePath;
         this.rightFileName = rightFileName;
         this.rightFilePath = rightFilePath;
         this.compareStatus = compareStatus;

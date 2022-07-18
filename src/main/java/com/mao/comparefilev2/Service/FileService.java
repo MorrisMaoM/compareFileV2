@@ -36,7 +36,7 @@ public class FileService {
 
     public long filesCompareByByte(String filePath1, String filePath2, ExcelLogModel excelLogModel) throws IOException, InterruptedException,NullPointerException {
 
-        System.out.println("比對程式裡面"+excelLogModel);
+
         String configProperties = "config.properties";
         Properties props = new Properties();
         props.load(new InputStreamReader(new FileInputStream(configProperties), "UTF-8"));
@@ -60,7 +60,7 @@ public class FileService {
 
             if (!filePath1.contains(":/")) {
 
-                System.out.println("有進205");
+//                System.out.println("有進205");
                 JSch jsch = new JSch();
                 Session session = null;
 
@@ -79,7 +79,7 @@ public class FileService {
                 sftpChannel.connect();
 
 
-                System.out.println("205路徑:" + filePath1);
+                System.out.println("leif file: " + filePath1);
                 InputStream ins = sftpChannel.get(filePath1);
                 fileSize1 = sftpChannel.lstat(filePath1).getSize();
 
@@ -95,7 +95,7 @@ public class FileService {
             }
 
             if (!filePath2.contains(":/")) {
-                System.out.println("有進134");
+//                System.out.println("有進134");
                 JSch jsch = new JSch();
                 Session session = null;
 
@@ -112,7 +112,7 @@ public class FileService {
                 channel.connect();
                 ChannelSftp sftpChannel = (ChannelSftp) channel;
 
-                System.out.println("134路徑:" + filePath2);
+                System.out.println("right file: " + filePath2);
                 InputStream stream = sftpChannel.get(filePath2);
                 fileSize2 = sftpChannel.lstat(filePath2).getSize();
                 fis2 = new BufferedInputStream(stream);
