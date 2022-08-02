@@ -47,6 +47,7 @@ public class FileService {
         String rightHost = props.getProperty("rightHost");
         String rightUser = props.getProperty("rightUser");
         String rightPassword = props.getProperty("rightPassword");
+        int whichFileNotFound = 0;
 
 //                properties.load(config);
 
@@ -55,9 +56,10 @@ public class FileService {
         BufferedInputStream fis2 = null;
         long fileSize1 = 0;
         long fileSize2 = 0;
+
         try {
 
-
+            whichFileNotFound=0;
             if (!filePath1.contains(":/")) {
 
 //                System.out.println("有進205");
@@ -79,8 +81,10 @@ public class FileService {
                 sftpChannel.connect();
 
 
-                System.out.println("leif file: " + filePath1);
+                System.out.println("left file: " + filePath1);
+
                 InputStream ins = sftpChannel.get(filePath1);
+                whichFileNotFound++;
                 fileSize1 = sftpChannel.lstat(filePath1).getSize();
 
                 fis1 = new BufferedInputStream(ins);
@@ -114,6 +118,7 @@ public class FileService {
 
                 System.out.println("right file: " + filePath2);
                 InputStream stream = sftpChannel.get(filePath2);
+                whichFileNotFound++;
                 fileSize2 = sftpChannel.lstat(filePath2).getSize();
                 fis2 = new BufferedInputStream(stream);
 
@@ -126,7 +131,7 @@ public class FileService {
                 fis2 = new BufferedInputStream(new FileInputStream(filePath2));
             }
             if (fileSize1 != fileSize2) {
-                System.out.println("大小不一致");
+                System.out.println("File size different");
 //                excelLogModel.setCompareStatus("Fail");
 //                excelLogModel.setStatusDescription("Files size are different");
                 throw new SizeDifferentException();
@@ -176,19 +181,32 @@ public class FileService {
             }
 
         }catch (NullPointerException e){
-            System.out.println("File not found");
-            excelLogModel.setCompareStatus("Fail");
-            excelLogModel.setStatusDescription("File not found");
+
+            if(whichFileNotFound==1) {
+                System.out.println("Left file not found");
+                excelLogModel.setCompareStatus("Fail");
+                excelLogModel.setStatusDescription("Left file not found");
+            }else if(whichFileNotFound==2){
+                System.out.println("Right file not found");
+                excelLogModel.setCompareStatus("Fail");
+                excelLogModel.setStatusDescription("Right file not found");
+            }
         } catch (SizeDifferentException e) {
             excelLogModel.setCompareStatus("Fail");
-            excelLogModel.setStatusDescription("Files size are different");
+            excelLogModel.setStatusDescription("File size different");
         } catch (JSchException e) {
         e.printStackTrace();
         } catch (SftpException e) {
         if (e.id == ChannelSftp.SSH_FX_NO_SUCH_FILE) {
-            System.out.println("File not found");
-            excelLogModel.setCompareStatus("Fail");
-            excelLogModel.setStatusDescription("File not found");
+            if(whichFileNotFound==0) {
+                System.out.println("Left file not found");
+                excelLogModel.setCompareStatus("Fail");
+                excelLogModel.setStatusDescription("Left file not found");
+            }else if(whichFileNotFound==1){
+                System.out.println("Right file not found");
+                excelLogModel.setCompareStatus("Fail");
+                excelLogModel.setStatusDescription("Right file not found");
+            }
         }
 
     }

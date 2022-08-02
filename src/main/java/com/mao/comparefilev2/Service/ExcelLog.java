@@ -72,8 +72,9 @@ public class ExcelLog {
             Cell headerCell1 = row.createCell(1);
             Cell headerCell2 = row.createCell(2);
             Cell headerCell3 = row.createCell(3);
-            Cell headerCell4 = row.createCell(4);
-            Cell headerCell5 = row.createCell(5);
+            Cell headerCell =  row.createCell(4);
+            Cell headerCell4 = row.createCell(5);
+            Cell headerCell5 = row.createCell(6);
 
 
             headerCell0.setCellValue("Left File");
@@ -94,13 +95,17 @@ public class ExcelLog {
             headerCell5.setCellValue("Description");
             headerCell5.setCellStyle(cellStyle1);
 
+            headerCell.setCellValue("JCL");
+            headerCell.setCellStyle(cellStyle1);
+
             for(int i=0;i<excelLogModelList.size();i++){
                 XSSFRow irow = sheet.createRow(i+1);
                 irow.createCell(0).setCellValue(excelLogModelList.get(i).getLeftFileName());
                 irow.createCell(2).setCellValue(excelLogModelList.get(i).getLeftFilePath());
                 irow.createCell(1).setCellValue(excelLogModelList.get(i).getRightFileName());
                 irow.createCell(3).setCellValue(excelLogModelList.get(i).getRightFilePath());
-                XSSFCell cell4 =irow.createCell(4);
+                irow.createCell(4).setCellValue(excelLogModelList.get(i).getJcl());
+                XSSFCell cell4 =irow.createCell(5);
                 if(excelLogModelList.get(i).getCompareStatus().equals("Fail")){
                     cell4.setCellStyle(cellStyle3);
                     cell4.setCellValue(excelLogModelList.get(i).getCompareStatus());
@@ -109,7 +114,7 @@ public class ExcelLog {
                 }else{
                     cell4.setCellValue(excelLogModelList.get(i).getCompareStatus());
                 }
-                irow.createCell(5).setCellValue(excelLogModelList.get(i).getStatusDescription());
+                irow.createCell(6).setCellValue(excelLogModelList.get(i).getStatusDescription());
             }
             Date date = new Date() ;
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
