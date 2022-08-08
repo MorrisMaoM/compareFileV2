@@ -2,25 +2,16 @@ package com.mao.comparefilev2;
 
 import com.mao.comparefilev2.Model.ExcelLogModel;
 import com.mao.comparefilev2.Service.*;
-import javafx.application.Application;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.scheduling.annotation.EnableScheduling;
+
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
+import java.util.*;
 
 @SpringBootApplication
 public class CompareFileV2Application {
@@ -34,17 +25,15 @@ public class CompareFileV2Application {
         System.setProperty("java.awt.headless", "false");
 
         List<ExcelLogModel> excelLogModelList = new ArrayList<>();
-        FileInputStream config = null;
-        FileService fileService = new FileService();
-        Properties properties = new Properties();
         Scanner scanner = new Scanner(System.in);
         String funtionString = null;
         String adName=null;
         while (true) {
 
             System.out.println("請輸入數字選擇功能");
-            System.out.println(" 1)  Compare by JCL");
-            System.out.println(" 2)  Compare by file");
+            System.out.println(" 1)  Compare by AD");
+            System.out.println(" 2)  Compare by FileName");
+            System.out.println(" 3)  Compare by Excel");
             funtionString = scanner.next();
 
             if (funtionString.equals("1")) {
@@ -53,7 +42,7 @@ public class CompareFileV2Application {
                 //用excel產JCL
                 System.out.println("請輸入要比對的AD");
                 adName=scanner.next();
-                System.out.println("run Compare by JCL");
+                System.out.println("run Compare by AD");
 
                 List<String> filePathList = new ReadExcelFilePath().readAllExcelForPath(adName);
 
@@ -67,6 +56,46 @@ public class CompareFileV2Application {
             }
 
             if (funtionString.equals("2")) {
+                List fileNameList = new ArrayList();
+
+                int counter =1;
+                String yesOrNo="123";
+                while(true) {
+
+                    System.out.println("請輸入要比對的第"+counter+"組檔案名稱 (已輸入完畢開始比對直接按ENTER)");
+
+
+                    System.out.println("Left File Name :");
+                    String leftFileName = scanner.next();
+                    System.out.println("Right File Name :");
+                    String rightFileName = scanner.next();
+                    counter ++;
+                    fileNameList.add(leftFileName+","+rightFileName);
+                    System.out.println("是否還有下一組(y/n)   ENTER預設y");
+                    String absorb=scanner.nextLine();
+                    String line = scanner.nextLine();
+                    if ("n".equalsIgnoreCase(line)) {
+                        break;
+                    }
+//                    scanner.nextLine();
+//                    scanner.nextLine();
+                    System.out.println(line);
+                }
+//                System.out.println("123");
+//                List<String> filePathList = new ReadExcelFilePath().readExcelForPath();
+//
+//                excelLogModelList = new RunCompare().doCompare(filePathList);
+//
+//
+//
+//                new ExcelLog().newExcelLog(excelLogModelList);
+
+//                break;
+            }
+
+
+
+            if (funtionString.equals("3")) {
 
                 System.out.println("run Compare by file");
 

@@ -6,6 +6,7 @@ import ch.ethz.ssh2.SFTPv3DirectoryEntry;
 import com.jcraft.jsch.*;
 import com.mao.comparefilev2.Model.ExcelLogModel;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -198,14 +199,21 @@ public class FileService {
         e.printStackTrace();
         } catch (SftpException e) {
         if (e.id == ChannelSftp.SSH_FX_NO_SUCH_FILE) {
-            if(whichFileNotFound==0) {
-                System.out.println("Left file not found");
-                excelLogModel.setCompareStatus("Fail");
-                excelLogModel.setStatusDescription("Left file not found");
-            }else if(whichFileNotFound==1){
-                System.out.println("Right file not found");
-                excelLogModel.setCompareStatus("Fail");
-                excelLogModel.setStatusDescription("Right file not found");
+            if(!filePath1.contains("SAM")) {
+                System.out.println("=====file not found and try add .SAM=====");
+                filePath1 = filePath1 + ".SAM";
+                filePath2 = StringUtils.removeEnd(filePath2, ".DAT") + ".SAM.DAT";
+                filesCompareByByte(filePath1, filePath2, excelLogModel);
+            }else {
+                if (whichFileNotFound == 0) {
+                    System.out.println("Left file not found");
+                    excelLogModel.setCompareStatus("Fail");
+                    excelLogModel.setStatusDescription("Left file not found");
+                } else if (whichFileNotFound == 1) {
+                    System.out.println("Right file not found");
+                    excelLogModel.setCompareStatus("Fail");
+                    excelLogModel.setStatusDescription("Right file not found");
+                }
             }
         }
 

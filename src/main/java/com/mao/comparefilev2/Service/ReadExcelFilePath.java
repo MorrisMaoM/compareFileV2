@@ -174,5 +174,79 @@ public class ReadExcelFilePath {
         return filePathList;
     }
 
+//    public List keyFileNamesForPath(){
+//
+//        String config = "config.properties";
+//        Properties props = new Properties();
+//
+//
+//        List filePathList = new ArrayList();
+//        try {
+//            props.load(new InputStreamReader(new FileInputStream(config), "UTF-8"));
+//            //整份EXCEL
+//
+//            String leftPath = props.getProperty("leftPath");
+//            String rightPath = props.getProperty("rightPath");
+//
+//
+//
+//            for(int i =2; i<=rowLength;i++){
+//
+//
+//
+////                XSSFRow row = sheet.getRow(i);
+//
+//                XSSFCell cell1 = row.getCell(0);
+//                XSSFCell cell2 = row.getCell(1);
+//                XSSFCell cell3 = row.getCell(2);
+//                XSSFCell cell4 = row.getCell(5);
+////                XSSFCell cellRecfm = row.getCell(2);
+//                String fileAndPath1 = cell1.getStringCellValue()+".DAT";
+//                String ad = cell2.getStringCellValue().toUpperCase(Locale.ROOT);
+//                String jcl = cell3.getStringCellValue();
+//                String fileAndPath2= cell4.getStringCellValue();
+//
+////                header1 = cellHeader1.getStringCellValue();
+////                header2 = cellHeader2.getStringCellValue();
+//
+//
+////                if(header1.replace(" ","").toLowerCase().contains("leftfile")){
+////                    if(fileAndPath1.contains("/")||fileAndPath1.contains("\\")) {
+////                        filePathList.add(fileAndPath1 + ";" + fileAndPath2);
+////                    }else{
+////                        filePathList.add(leftPath + fileAndPath1 + ";" + rightPath + fileAndPath2);
+////                    }
+////                }else if(header2.replace(" ","").toLowerCase().contains("leftfile")){
+////                    if(fileAndPath1.contains("/")||fileAndPath1.contains("\\")) {
+////                        filePathList.add(fileAndPath2 + ";" + fileAndPath1);
+////                    }else{
+////                        filePathList.add(leftPath + fileAndPath2 + ";" + rightPath + fileAndPath1);
+////                    }
+////                }
+////                if(adNames.equals(ad)&&!fileAndPath2.equals("N")){
+////                    filePathList.add(leftPath+fileAndPath2+ ";" + rightPath + fileAndPath1+"-"+jcl);
+////                }
+//
+//
+//
+//            }
+//
+//
+//
+//
+//
+//
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("excel not found");
+//        }
+//
+//        return filePathList;
+//    }
+
+
+
+
 
 }
